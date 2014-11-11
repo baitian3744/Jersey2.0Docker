@@ -74,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Employees mapToModel(List<EmployeeEntity> employees) {
         Employees employees1 = new Employees();
         List<Employee> lst = new ArrayList<>();
+        employees1.setEmployees(lst);
         for (EmployeeEntity emp: employees){
             lst.add(mapToSingleModel(emp));
         }

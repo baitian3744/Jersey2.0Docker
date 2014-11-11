@@ -9,7 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jre-headless
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget pwgen
 
-ENV TOMCAT_VERSION 8.0.9
+ENV TOMCAT_VERSION 8.0.11
 ENV CATALINA_HOME /tomcat
 
 # INSTALL TOMCAT
