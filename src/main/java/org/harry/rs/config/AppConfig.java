@@ -1,5 +1,6 @@
 package org.harry.rs.config;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -65,5 +66,9 @@ public class AppConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
+    @Bean
+    public DozerBeanMapper dozerBeanMapper(){
+        return new DozerBeanMapper();
+    }
 
 }

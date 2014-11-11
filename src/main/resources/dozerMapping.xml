@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping>
+        <class-a>org.harry.rs.employeesample.entity.EmployeeEntity</class-a>
+        <class-b>org.harry.rs.employeesample.model.Employee</class-b>
+        <field>
+            <a>empId</a>
+            <b>Id</b>
+        </field>
+
+        <field>
+            <a>firstName</a>
+            <b>name</b>
+        </field>
+        <field>
+            <a>addressLine1</a>
+            <b>mailingAddress.addressline1</b>
+        </field>
+        <field>
+            <a>addressLine2</a>
+            <b>mailingAddress.addressline2</b>
+        </field>
+        <field>
+            <a>city</a>
+            <b>mailingAddress.city</b>
+        </field>
+        <field>
+            <a>state</a>
+            <b>mailingAddress.state</b>
+        </field>
+        <field>
+            <a>country</a>
+            <b>mailingAddress.country</b>
+        </field>
+        <field>
+            <a>pin</a>
+            <b>mailingAddress.pinCode</b>
+        </field>
+    </mapping>
+
+
+</mappings> 
