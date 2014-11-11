@@ -25,16 +25,18 @@ this would fire up the Jersey Service on local
 you can now use curl or any browser extension to point the resources
  
 
-GET http://localhost:8080/resources/application.wadl
+
+ curl http://localhost:8080/application.wadl
     
     to get all the resources under this service
-GET http://localhost:8080/resources/ping 
+    
+ curl http://localhost:8080/ping 
     
     to test whether app is working or not
 
-GET http://localhost:8080/resources/employees 
+ curl http://localhost:8080/employees 
 
     to give all the hardcoded employees
     
-GET http://localhost:8080/resources/employees/111 
+ curl http://localhost:8080/employees/111 
    to drill down to single employee
