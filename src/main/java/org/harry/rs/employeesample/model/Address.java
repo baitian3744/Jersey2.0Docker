@@ -58,4 +58,17 @@ public class Address {
     public void setPinCode(Integer pinCode) {
         this.pinCode = pinCode;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Address{");
+        sb.append("addressline1='").append(addressline1).append('\'');
+        sb.append(", addressline2='").append(addressline2).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", state='").append(state).append('\'');
+        sb.append(", country='").append(country).append('\'');
+        sb.append(", pinCode=").append(pinCode);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -1,5 +1,6 @@
 package org.harry.rs.config;
 
+import jersey.repackaged.com.google.common.collect.Lists;
 import org.dozer.DozerBeanMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +16,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @Configuration
@@ -68,7 +71,11 @@ public class AppConfig {
 
     @Bean
     public DozerBeanMapper dozerBeanMapper(){
-        return new DozerBeanMapper();
+        final List<String> mappingFile = Lists.newArrayList();
+
+        final DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+        dozerBeanMapper.setMappingFiles(mappingFile);
+        return dozerBeanMapper;
     }
 
 }

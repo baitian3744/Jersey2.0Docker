@@ -4,41 +4,51 @@
           xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-    <mapping>
-        <class-a>org.harry.rs.employeesample.entity.EmployeeEntity</class-a>
-        <class-b>org.harry.rs.employeesample.model.Employee</class-b>
+    <mapping map-id="emp_entity_model">
+        <class-a>org.harry.rs.employeesample.model.Employee</class-a>
+        <class-b>org.harry.rs.employeesample.entity.EmployeeEntity</class-b>
         <field>
-            <a>empId</a>
-            <b>Id</b>
+            <a>id</a>
+            <b>empId</b>
         </field>
 
         <field>
-            <a>firstName</a>
-            <b>name</b>
+            <a>name.fname</a>
+            <b>firstName</b>
+        </field>
+
+        <field>
+            <a>name.lname</a>
+            <b>lastName</b>
+        </field>
+
+        <field>
+            <a>name.mname</a>
+            <b>middleName</b>
         </field>
         <field>
-            <a>addressLine1</a>
-            <b>mailingAddress.addressline1</b>
+            <a>mailingAddress.addressline1</a>
+            <b>addressLine1</b>
         </field>
         <field>
-            <a>addressLine2</a>
-            <b>mailingAddress.addressline2</b>
+            <a>mailingAddress.addressline2</a>
+            <b>addressLine2</b>
         </field>
         <field>
-            <a>city</a>
-            <b>mailingAddress.city</b>
+            <a>mailingAddress.city</a>
+            <b>city</b>
         </field>
         <field>
-            <a>state</a>
-            <b>mailingAddress.state</b>
+            <a>mailingAddress.state</a>
+            <b>state</b>
         </field>
         <field>
-            <a>country</a>
-            <b>mailingAddress.country</b>
+            <a>mailingAddress.country</a>
+            <b>country</b>
         </field>
         <field>
-            <a>pin</a>
-            <b>mailingAddress.pinCode</b>
+            <a>mailingAddress.pinCode</a>
+            <b>pin</b>
         </field>
     </mapping>
 

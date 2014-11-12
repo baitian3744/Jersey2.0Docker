@@ -1,6 +1,8 @@
 package org.harry.rs.employeesample.service;
 
-import org.dozer.Mapper;
+import jersey.repackaged.com.google.common.base.Function;
+import jersey.repackaged.com.google.common.collect.Lists;
+import org.dozer.DozerBeanMapper;
 import org.harry.rs.employeesample.dao.EmployeeDAO;
 import org.harry.rs.employeesample.entity.EmployeeEntity;
 import org.harry.rs.employeesample.model.Employee;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeDAO employeeDAO;
 
     @Autowired
-    Mapper mapper;
+    DozerBeanMapper mapper;
 
     @Override
     public Employees getEmployees() {
@@ -37,14 +38,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployeeDetails(String employeeId) {
         LOGGER.debug("Getting the details for {} Empl", employeeId);
         Assert.notNull("EmployeeId should not be null", employeeId);
-        return mapToSingleModel(employeeDAO.getEmployeeDetails(Long.parseLong(employeeId)));
+        return mapper.map(employeeDAO.getEmployeeDetails(Long.parseLong(employeeId)), Employee.class);
 
     }
 
     @Override
     public Employee saveEmployee(Employee employee) {
         LOGGER.debug("Saving the Empl{}", employee);
-        return mapToSingleModel((employeeDAO.saveEmployee(mapToSingleEntity(employee))));
+        return mapper.map((employeeDAO.saveEmployee(mapper.map(employee, EmployeeEntity.class))), Employee.class);
     }
 
     @Override
@@ -62,30 +63,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     private List<EmployeeEntity> mapToEntity(Employees employees) {
-        List<EmployeeEntity> entities = new ArrayList<>();
-        for (Employee emp : employees.getEmployees()) {
-            entities.add(mapToSingleEntity(emp));
-        }
+        List<EmployeeEntity> entities = Lists.transform(employees.getEmployees(), new Function<Employee, EmployeeEntity>() {
+            @Override
+            public EmployeeEntity apply(Employee employee) {
+                return mapper.map(employee, EmployeeEntity.class);
+            }
+        });
         return entities;
+
     }
 
     private Employees mapToModel(List<EmployeeEntity> employees) {
+        List<Employee> employeeList = Lists.transform(employees, new Function<EmployeeEntity, Employee>() {
+            @Override
+            public Employee apply(EmployeeEntity employeeEntity) {
+                return mapper.map(employeeEntity, Employee.class);
+            }
+        });
         Employees employees1 = new Employees();
-        List<Employee> lst = new ArrayList<>();
-        employees1.setEmployees(lst);
-        for (EmployeeEntity emp : employees) {
-            lst.add(mapToSingleModel(emp));
-        }
+        employees1.setEmployees(employeeList);
         return employees1;
     }
 
-    private EmployeeEntity mapToSingleEntity(Employee emp) {
-        return mapper.map(emp, EmployeeEntity.class);
-    }
 
-
-    private Employee mapToSingleModel(EmployeeEntity employeeEntity) {
-        Employee employee = mapper.map(employeeEntity, Employee.class);
-        return employee;
-    }
 }
