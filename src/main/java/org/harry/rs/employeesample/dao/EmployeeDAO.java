@@ -11,7 +11,7 @@ import java.util.List;
 public interface EmployeeDAO {
 
     public List<EmployeeEntity > getAllEmployees();
-    public EmployeeEntity getEmployeeDetails(Long empId);
+    public EmployeeEntity getEmployeeDetails(Integer empId);
     public List<EmployeeEntity>  saveEmployees(List<EmployeeEntity> ems);
     public EmployeeEntity saveEmployee(EmployeeEntity em);
 

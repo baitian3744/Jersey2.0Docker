@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class EmployeeEntity {
 
 
-
     private Integer empId;
     private String firstName;
     private String lastName;
@@ -18,8 +17,20 @@ public class EmployeeEntity {
     private String addressLine1;
     private String addressLine2;
     private String city;
+
+    private String state;
     private String country;
     private Integer pin;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    private Integer age;
 
     public String getFirstName() {
         return firstName;
@@ -95,5 +106,31 @@ public class EmployeeEntity {
 
     public void setEmpId(Integer empId) {
         this.empId = empId;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("EmployeeEntity{");
+        sb.append("empId=").append(empId);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", middleName='").append(middleName).append('\'');
+        sb.append(", addressLine1='").append(addressLine1).append('\'');
+        sb.append(", addressLine2='").append(addressLine2).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", country='").append(country).append('\'');
+        sb.append(", pin=").append(pin);
+        sb.append(", age=").append(age);
+        sb.append('}');
+        return sb.toString();
     }
 }

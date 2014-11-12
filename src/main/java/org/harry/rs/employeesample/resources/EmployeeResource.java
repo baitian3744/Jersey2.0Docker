@@ -37,7 +37,16 @@ public class EmployeeResource {
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response SaveCustomer(@PathParam("id") String customerId,Employee employee) {
+    public Response updateCustomer(@PathParam("id") String customerId,Employee employee) {
+        LOG.debug("CustomerResource id{} ",customerId);
+        System.out.println("the Id os "+customerId);
+        return Response.status(Response.Status.CREATED).entity(employeeService.saveEmployee(employee)).build();
+    }
+
+
+
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response saveCustomer(@PathParam("id") String customerId,Employee employee) {
         LOG.debug("CustomerResource id{} ",customerId);
         System.out.println("the Id os "+customerId);
         return Response.status(Response.Status.CREATED).entity(employeeService.saveEmployee(employee)).build();
@@ -48,7 +57,8 @@ public class EmployeeResource {
     public Response deleteCustomer(@PathParam("id") String customerId) {
         LOG.debug("CustomerResource id{} ",customerId);
         System.out.println("the Id os "+customerId);
-        return Response.ok(employeeService.getEmployeeDetails(customerId)).build();
+        employeeService.deleteEmployee(Integer.parseInt(customerId));
+        return Response.status(Response.Status.GONE).build();
     }
 
 

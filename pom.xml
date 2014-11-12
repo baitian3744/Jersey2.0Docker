@@ -239,7 +239,11 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>1.5.2.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>${dozer.version}</version>
+        </dependency>
 
     </dependencies>
     <properties>
@@ -260,6 +264,7 @@
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <hibernate-core.version>4.2.3.Final</hibernate-core.version>
         <hsql.version>2.2.8</hsql.version>
+        <dozer.version>5.4.0</dozer.version>
     </properties>
 
 </project>

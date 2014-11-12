@@ -15,6 +15,6 @@ public interface  EmployeeService {
 
     public abstract Employee getEmployeeDetails(String employeeId);
     public abstract Employee saveEmployee(Employee employee);
-    public abstract void deleteEmployee(Employee employee);
+    public abstract void deleteEmployee(Integer employee);
 
 }

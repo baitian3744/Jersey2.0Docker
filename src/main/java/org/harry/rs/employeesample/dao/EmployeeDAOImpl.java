@@ -33,7 +33,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public EmployeeEntity getEmployeeDetails(Long employeeID) {
+    public EmployeeEntity getEmployeeDetails(Integer employeeID) {
         LOGGER.debug("Finding The  {} employee",employeeID);
         return employeeRepository.findOne(employeeID);
     }
@@ -59,7 +59,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void delete(Integer id) {
         LOGGER.debug("Deleting  The  {} employee",id);
-        employeeRepository.delete(employeeRepository.findOne(Long.valueOf(id)));
+        employeeRepository.delete(employeeRepository.findOne(id));
     }
 
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping map-id="emp_entity_model" type="bi-directional">
+        <class-a>org.harry.rs.employeesample.model.Employee</class-a>
+        <class-b>org.harry.rs.employeesample.entity.EmployeeEntity</class-b>
+        <field>
+            <a>id</a>
+            <b>empId</b>
+
+        </field>
+        <field>
+            <a>name.fname</a>
+            <b>firstName</b>
+        </field>
+
+        <field>
+            <a>name.lname</a>
+            <b>lastName</b>
+        </field>
+
+        <field>
+            <a>name.mname</a>
+            <b>middleName</b>
+        </field>
+        <field>
+            <a>mailingAddress.addressline1</a>
+            <b>addressLine1</b>
+        </field>
+        <field>
+            <a>mailingAddress.addressline2</a>
+            <b>addressLine2</b>
+        </field>
+        <field>
+            <a>mailingAddress.city</a>
+            <b>city</b>
+        </field>
+        <field>
+            <a>mailingAddress.state</a>
+            <b>state</b>
+        </field>
+        <field>
+            <a>mailingAddress.country</a>
+            <b>country</b>
+        </field>
+        <field>
+            <a>mailingAddress.pinCode</a>
+            <b>pin</b>
+        </field>
+    </mapping>
+
+
+</mappings> 
