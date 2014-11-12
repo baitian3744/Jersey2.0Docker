@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
+    public static final String EMP_ENTITY_MODEL = "emp_entity_model";
 
     @Autowired
     EmployeeDAO employeeDAO;
@@ -40,20 +41,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployeeDetails(String employeeId) {
         LOGGER.debug("Getting the details for {} Empl", employeeId);
         Assert.notNull("EmployeeId should not be null", employeeId);
-        return mapper.map(employeeDAO.getEmployeeDetails(Long.parseLong(employeeId)), Employee.class);
+        return mapper.map(employeeDAO.getEmployeeDetails(Integer.parseInt(employeeId)), Employee.class,EMP_ENTITY_MODEL);
 
     }
 
     @Override
     public Employee saveEmployee(Employee employee) {
         LOGGER.debug("Saving the Empl{}", employee);
-        return mapper.map((employeeDAO.saveEmployee(mapper.map(employee, EmployeeEntity.class))), Employee.class);
+        return mapper.map((employeeDAO.saveEmployee(mapper.map(employee, EmployeeEntity.class,EMP_ENTITY_MODEL))), Employee.class,EMP_ENTITY_MODEL);
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
-        LOGGER.debug("Deleting the Empl{}", employee);
-        employeeDAO.delete(employee.getId());
+    public void deleteEmployee(Integer employeeId) {
+        LOGGER.debug("Deleting the Empl{}", employeeId);
+        employeeDAO.delete(employeeId);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             @Override
             public EmployeeEntity apply(Employee employee) {
                 LOGGER.debug("mapper {} , employee {}",mapper,employee);
-                return mapper.map(employee,EmployeeEntity.class,"emp_entity_model");
+                return mapper.map(employee,EmployeeEntity.class, EMP_ENTITY_MODEL);
             }
         });
         return entities;
@@ -80,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employeeList = Lists.transform(employees, new Function<EmployeeEntity, Employee>() {
             @Override
             public Employee apply(EmployeeEntity employeeEntity) {
-                return mapper.map(employeeEntity, Employee.class,"emp_entity_model");
+                return mapper.map(employeeEntity, Employee.class, EMP_ENTITY_MODEL);
             }
         });
         Employees employees1 = new Employees();

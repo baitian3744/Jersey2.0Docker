@@ -9,6 +9,6 @@ import java.util.List;
 /**
  * Created by harry on 8/4/14.
  */
-public interface EmployeeRepository extends CrudRepository<EmployeeEntity,Long> {
+public interface EmployeeRepository extends CrudRepository<EmployeeEntity,Integer> {
 
 }
