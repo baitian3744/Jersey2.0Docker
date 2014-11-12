@@ -1,6 +1,7 @@
 package org.harry.rs.config;
 
-import org.dozer.spring.DozerBeanMapperFactoryBean;
+import jersey.repackaged.com.google.common.collect.Lists;
+import org.dozer.DozerBeanMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Properties;
 
 @Configuration
@@ -67,13 +69,18 @@ public class AppConfig {
     }
 
     @Bean
-    public DozerBeanMapperFactoryBean dozerBeanMapper() {
-//        final List<String> mappingFile = Lists.newArrayList();
-//
-//        final DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-//        dozerBeanMapper.setMappingFiles(mappingFile);
-//        return dozerBeanMapper;
-        return new DozerBeanMapperFactoryBean();
+    public DozerBeanMapper dozerBeanMapper() throws Exception {
+//        DozerBeanMapperFactoryBean factory = new DozerBeanMapperFactoryBean();
+//        Resource mockResource = new ClassPathResource("dozerMapping.xml");
+//        factory.setMappingFiles(new Resource[]{mockResource});
+//        return (DozerBeanMapper) factory.getObject();
+        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+        //dozerBeanMapper.addMapping(mockResource.getInputStream());
+        final List<String> list = Lists.newArrayList();
+        list.add("dozerMapping.xml");
+        dozerBeanMapper.setMappingFiles(list);
+        return dozerBeanMapper;
+
     }
 
 }

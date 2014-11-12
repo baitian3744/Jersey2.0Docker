@@ -10,6 +10,7 @@ import org.harry.rs.employeesample.model.Employees;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -26,6 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeDAO employeeDAO;
 
     @Autowired
+    @Qualifier("dozerBeanMapper")
     DozerBeanMapper mapper;
 
     @Override
@@ -66,7 +68,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<EmployeeEntity> entities = Lists.transform(employees.getEmployees(), new Function<Employee, EmployeeEntity>() {
             @Override
             public EmployeeEntity apply(Employee employee) {
-                return mapper.map(employee, EmployeeEntity.class);
+                LOGGER.debug("mapper {} , employee {}",mapper,employee);
+                return mapper.map(employee,EmployeeEntity.class,"emp_entity_model");
             }
         });
         return entities;
@@ -77,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employeeList = Lists.transform(employees, new Function<EmployeeEntity, Employee>() {
             @Override
             public Employee apply(EmployeeEntity employeeEntity) {
-                return mapper.map(employeeEntity, Employee.class);
+                return mapper.map(employeeEntity, Employee.class,"emp_entity_model");
             }
         });
         Employees employees1 = new Employees();

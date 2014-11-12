@@ -6,6 +6,7 @@ package org.harry.rs.employeesample.model;
 public class Name {
     private String fname;
     private String lname;
+    private String mname;
 
     @Override
     public String toString() {
@@ -16,8 +17,6 @@ public class Name {
         sb.append('}');
         return sb.toString();
     }
-
-    private String mname;
 
     public String getFname() {
         return fname;

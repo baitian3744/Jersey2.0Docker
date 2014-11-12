@@ -2,11 +2,9 @@ package org.harry.rs.eers.service
 
 import org.glassfish.grizzly.http.server.HttpServer
 import org.glassfish.jersey.client.ClientConfig
-import org.glassfish.jersey.client.ClientResponse
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
 import org.glassfish.jersey.server.ResourceConfig
 import org.harry.rs.config.AppConfig
-import org.harry.rs.config.GsonMessageBodyHandler
 import org.harry.rs.employeesample.jersey.MyApplication
 import org.harry.rs.employeesample.model.Address
 import org.harry.rs.employeesample.model.Employee
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Shared
 import spock.lang.Specification
-import spock.lang.Stepwise
 
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.ClientBuilder
@@ -40,7 +37,7 @@ class WebServiceTest extends Specification {
 
 
     void setupSpec() {
-         final ResourceConfig rc  =  new MyApplication().property("contextConfig", new AnnotationConfigApplicationContext(AppConfig.class))
+        final ResourceConfig rc = new MyApplication().property("contextConfig", new AnnotationConfigApplicationContext(AppConfig.class))
         server = GrizzlyHttpServerFactory.createHttpServer(URI.create("http://localhost:8090"), rc)
         server.start();
 
@@ -63,17 +60,18 @@ class WebServiceTest extends Specification {
 
     def "Create a single Employees"() {
         setup:
-            def employees = new Employees(employees:[new Employee( name:new Name(fname:'Elsa'),age:21,
-                    mailingAddress: new Address( addressline1:'Frozen',addressline2:'Disney land',city:'Southern Isles',state:'California',country:'Arendelle',pinCode:100100))])
+        def employees = new Employees(employees: [new Employee(name: new Name(fname: 'Elsa'), age: 21,
+                mailingAddress: new Address(addressline1: 'Frozen', addressline2: 'Disney land', city: 'Southern Isles', state: 'California', country: 'Arendelle', pinCode: 100100))])
         when:
-            def response = target.path("/employees").request(MediaType.APPLICATION_XML).post(Entity.entity(employees,MediaType.APPLICATION_XML));
-            def res = response.readEntity(Employees.class);
+        def response = target.path("/employees").request(MediaType.APPLICATION_XML).post(Entity.entity(employees, MediaType.APPLICATION_XML));
+        def res = response.readEntity(Employees.class);
         then:
-            assert response.status ==201
+        assert response.status == 201
 
-            assert res.employees.size()  ==1
-            //assert res.employees[0].id   ==1
-            assert res.employees[0].name.fname =='Elsa'
+        assert res.employees.size() == 1
+        assert res.employees[0].id   ==1
+        assert res.employees[0].name.fname == 'Elsa'
+        println("res."+res);
     }
 
 }
