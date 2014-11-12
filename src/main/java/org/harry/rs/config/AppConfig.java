@@ -1,7 +1,6 @@
 package org.harry.rs.config;
 
-import jersey.repackaged.com.google.common.collect.Lists;
-import org.dozer.DozerBeanMapper;
+import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +15,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories("org.harry.rs.employeesample.jparepositories")
 @EnableTransactionManagement
-@ComponentScan(basePackages ="org.harry.rs.employeesample")
+@ComponentScan(basePackages = "org.harry.rs.employeesample")
 public class AppConfig {
 
     public DataSource dataSource() {
@@ -57,7 +54,7 @@ public class AppConfig {
 
     }
 
-    @Bean(name="transactionManager")
+    @Bean(name = "transactionManager")
     public PlatformTransactionManager gettransactionManager() {
         JpaTransactionManager tm = new JpaTransactionManager();
         tm.setEntityManagerFactory(this.entityManagerFactory().getObject());
@@ -70,12 +67,13 @@ public class AppConfig {
     }
 
     @Bean
-    public DozerBeanMapper dozerBeanMapper(){
-        final List<String> mappingFile = Lists.newArrayList();
-
-        final DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        dozerBeanMapper.setMappingFiles(mappingFile);
-        return dozerBeanMapper;
+    public DozerBeanMapperFactoryBean dozerBeanMapper() {
+//        final List<String> mappingFile = Lists.newArrayList();
+//
+//        final DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+//        dozerBeanMapper.setMappingFiles(mappingFile);
+//        return dozerBeanMapper;
+        return new DozerBeanMapperFactoryBean();
     }
 
 }

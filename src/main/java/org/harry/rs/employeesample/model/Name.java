@@ -6,6 +6,17 @@ package org.harry.rs.employeesample.model;
 public class Name {
     private String fname;
     private String lname;
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Name{");
+        sb.append("fname='").append(fname).append('\'');
+        sb.append(", lname='").append(lname).append('\'');
+        sb.append(", mname='").append(mname).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
     private String mname;
 
     public String getFname() {
