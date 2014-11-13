@@ -15,6 +15,13 @@ Spring 4.0.1
 Spock 0.7
 
 
+Live Running application
+------------------------
+
+This application is live on heroku you could you point your browser at below target and check it out
+
+ 1.https://obscure-falls-1828.herokuapp.com/application.wadl
+
 
 Steps
 ---------
@@ -24,12 +31,14 @@ Steps
 this would fire up the Jersey Service on local
 you can now use curl or any browser extension to point the resources
 
+
 Chrome Testing
 -----------------
 Here is a Link to POSTMAN extension of Chrome. 
-a)Install Chrome
-b)Install POSTMAN Extension
-c)Import the collection from https://www.getpostman.com/collections/3c9feea2521a7c713cbe
+    a) Install Chrome
+    b) Install POSTMAN Extension
+    c) Import the collection from 
+    https://www.getpostman.com/collections/3c9feea2521a7c713cbe
 
  
  Testing via CMD Prompt
