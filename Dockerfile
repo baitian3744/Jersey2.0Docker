@@ -1,22 +1,20 @@
-FROM ubuntu:trusty
-
-MAINTAINER David Weber <dave@veryflatcat.com>
-
-# Helper to add deb file source
-RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jre-headless
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget pwgen
-
-ENV TOMCAT_VERSION 8.0.11
-ENV CATALINA_HOME /tomcat
-
-# INSTALL TOMCAT
-RUN wget http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-RUN wget -O- https://www.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz.md5 | md5sum -c -
-RUN tar zxf apache-tomcat-*.tar.gz && rm apache-tomcat-*.tar.gz && mv apache-tomcat* tomcat
-
-ADD create_tomcat_admin_user.sh /create_tomcat_admin_user.sh
-ADD run.sh /run.sh
-RUN chmod +x /*.sh
+FROM ubuntu:saucy
+# Update Ubuntu
+RUN apt-get update && apt-get -y upgrade
+# Add oracle java 7 repository
+RUN apt-get -y install software-properties-common
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get -y update
+# Accept the Oracle Java license
+RUN echo "oracle-java7-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
+# Install Oracle Java
+RUN apt-get -y install oracle-java7-installer
+# Install tomcat
+RUN apt-get -y install tomcat7
+RUN echo "JAVA_HOME=/usr/lib/jvm/java-7-oracle" >> /etc/default/tomcat7
+EXPOSE 8080
+# Download Slashdot homepage
+RUN mkdir /var/lib/tomcat7/webapps/slashdot
+RUN wget http://www.slashdot.org -P /var/lib/tomcat7/webapps/slashdot
+# Start Tomcat, after starting Tomcat the container will stop. So use a 'trick' to keep it running.
+CMD service tomcat7 start && tail -f /var/lib/tomcat7/logs/catalina.out
