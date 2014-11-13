@@ -1,7 +1,10 @@
 FROM ubuntu:saucy
 # Update Ubuntu
 RUN apt-get update && apt-get -y upgrade
+
+RUN apt-get -y --force-yes install maven
 # Add oracle java 7 repository
+
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
@@ -13,8 +16,15 @@ RUN apt-get -y install oracle-java7-installer
 RUN apt-get -y install tomcat7
 RUN echo "JAVA_HOME=/usr/lib/jvm/java-7-oracle" >> /etc/default/tomcat7
 EXPOSE 8080
+
 # Download Slashdot homepage
-RUN mkdir /var/lib/tomcat7/webapps/slashdot
-RUN wget http://www.slashdot.org -P /var/lib/tomcat7/webapps/slashdot
+#RUN mkdir /var/lib/tomcat7/webapps/slashdot
+#RUN wget http://www.slashdot.org -P /var/lib/tomcat7/webapps/slashdot
+#RUN wget http://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war -P /var/lib/tomcat7/webapps
+
+RUN ["sh","mvn","clean","package"]
+RUN ["sh","cp","./target/employee-sample.war","-P","/var/lib/tomcat7/webapps"]
+
+
 # Start Tomcat, after starting Tomcat the container will stop. So use a 'trick' to keep it running.
 CMD service tomcat7 start && tail -f /var/lib/tomcat7/logs/catalina.out
