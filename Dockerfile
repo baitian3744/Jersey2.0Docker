@@ -18,13 +18,14 @@ RUN echo "JAVA_HOME=/usr/lib/jvm/java-7-oracle" >> /etc/default/tomcat7
 EXPOSE 8080
 
 # Download Slashdot homepage
-#RUN mkdir /var/lib/tomcat7/webapps/slashdot
-#RUN wget http://www.slashdot.org -P /var/lib/tomcat7/webapps/slashdot
+RUN mkdir /var/lib/tomcat7/webapps/slashdot
+RUN wget http://www.slashdot.org -P /var/lib/tomcat7/webapps/slashdot
 #RUN wget http://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war -P /var/lib/tomcat7/webapps
 
-RUN ["sh","mvn","clean","package"]
-RUN ["sh","cp","./target/employee-sample.war","-P","/var/lib/tomcat7/webapps"]
+#RUN ["sh","mvn","clean","package"]
+#RUN ["sh","cp","./target/employee-sample.war","-P","/var/lib/tomcat7/webapps"]
 
 
 # Start Tomcat, after starting Tomcat the container will stop. So use a 'trick' to keep it running.
 CMD service tomcat7 start && tail -f /var/lib/tomcat7/logs/catalina.out
+
