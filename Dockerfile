@@ -1,31 +1,14 @@
-FROM ubuntu:saucy
-# Update Ubuntu
-RUN apt-get update && apt-get -y upgrade
+FROM ubuntu:14.04
+RUN apt-get update
 
-RUN apt-get -y --force-yes install maven
-# Add oracle java 7 repository
+RUN apt-get install -y openjdk-7-jre-headless wget
+RUN apt-get install -y maven
+RUN wget -O /tmp/tomcat8.tar.gz http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.9/bin/apache-tomcat-8.0.9.tar.gz
+RUN (cd /opt && tar zxf /tmp/tomcat8.tar.gz)
+RUN (mv /opt/apache-tomcat* /opt/tomcat)
+ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
 
-RUN apt-get -y install software-properties-common
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get -y update
-# Accept the Oracle Java license
-RUN echo "oracle-java7-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
-# Install Oracle Java
-RUN apt-get -y install oracle-java7-installer
-# Install tomcat
-RUN apt-get -y install tomcat7
-RUN echo "JAVA_HOME=/usr/lib/jvm/java-7-oracle" >> /etc/default/tomcat7
 EXPOSE 8080
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
-# Download Slashdot homepage
-RUN mkdir /var/lib/tomcat7/webapps/slashdot
-RUN wget http://www.slashdot.org -P /var/lib/tomcat7/webapps/slashdot
-#RUN wget http://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war -P /var/lib/tomcat7/webapps
-
-#RUN ["sh","mvn","clean","package"]
-#RUN ["sh","cp","./target/employee-sample.war","-P","/var/lib/tomcat7/webapps"]
-
-
-# Start Tomcat, after starting Tomcat the container will stop. So use a 'trick' to keep it running.
-CMD service tomcat7 start && tail -f /var/lib/tomcat7/logs/catalina.out
-
+RUN ["sh","/usr/bin/mvn","clean","package"]
