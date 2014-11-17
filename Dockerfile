@@ -13,7 +13,7 @@ CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
 RUN (mkdir /mygit && cd /mygit)
 
-RUN [ "/usr/bin/git", "clone" ,"https://github.com/hareendran/Jersey2.0Docker.git"]
+RUN [ "/usr/bin/git", "pull" ,"https://github.com/hareendran/Jersey2.0Docker.git"]
 
 RUN (cd Jersey2.0Docker && /usr/bin/mvn clean package)
-RUN ["cp" ,"Jersey2.0Docker/target/employee-sample-rs-1.0-SNAPSHOT.war", "/opt/tomcat/webapps"]
+RUN ["cp" ,"Jersey2.0Docker/target/*.war", "/opt/tomcat/webapps"]
