@@ -9,7 +9,7 @@ RUN (mv /opt/apache-tomcat* /opt/tomcat)
 ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-amd64
 
 EXPOSE 8080
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+#CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
 
 
@@ -18,3 +18,5 @@ RUN ( cd Jersey2.0Docker &&  git pull origin master && mvn clean package)
 
 #RUN (cd Jersey2.0Docker && /usr/bin/mvn clean package)
 RUN (cp /Jersey2.0Docker/target/*.war /opt/tomcat/webapps)
+
+CMD ["opt/tomcat/bin/catalina.sh","run"]
